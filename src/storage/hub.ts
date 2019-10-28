@@ -40,16 +40,6 @@ export async function uploadToGaiaHub(
   contentType: string = 'application/octet-stream'
 ): Promise<string> {
   Logger.debug(`uploadToGaiaHub: uploading ${filename} to ${hubConfig.server}`)
-  let test = {
-    method: 'POST',
-    headers: {
-      'Content-Type': contentType,
-      Authorization: `bearer ${hubConfig.token}`
-    }
-  }
-  consoleLog(test);
-  consoleLog("hubConfig: ");
-  consoleLog(JSON.stringify(hubConfig));
   const response = await fetchPrivate(
     `${hubConfig.server}/store/${hubConfig.address}/${filename}`, {
       method: 'POST',
@@ -60,7 +50,6 @@ export async function uploadToGaiaHub(
       body: contents
     }
   )
-  consoleLog(response);
   if (!response.ok) {
     throw new Error('Error when uploading to Gaia hub')
   } 
@@ -181,7 +170,7 @@ function makeV1GaiaAuthToken(hubInfo: any,
   };
 
   // const salt = crypto.randomBytes(16).toString('hex')
-  const salt = getRandomValuesPolyfill(16).toString('hex')
+  const salt = getRandomValuesPolyfill(16).toString(16)
   const payload = {
     gaiaChallenge: challengeText,
     hubUrl,
