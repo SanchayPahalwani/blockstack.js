@@ -162,7 +162,15 @@ function makeV1GaiaAuthToken(hubInfo: any,
     return makeLegacyAuthToken(challengeText, signerKeyHex)
   }
 
-  const salt = crypto.randomBytes(16).toString('hex')
+  const getRandomValuesPolyfill = (array: any) => {
+    for (let i = 0, l = array.length; i < l; i++) {
+        array[i] = Math.floor(Math.random() * 256);
+    }
+    return array;
+  };
+
+  // const salt = crypto.randomBytes(16).toString('hex')
+  const salt = getRandomValuesPolyfill(16).toString('hex')
   const payload = {
     gaiaChallenge: challengeText,
     hubUrl,
