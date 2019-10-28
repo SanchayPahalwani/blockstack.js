@@ -170,7 +170,7 @@ function makeV1GaiaAuthToken(hubInfo: any,
   };
 
   // const salt = crypto.randomBytes(16).toString('hex')
-  const salt = getRandomValuesPolyfill(16).toString(16)
+  const salt = getRandomValuesPolyfill(new Uint8Array(16)).toString('hex')
   const payload = {
     gaiaChallenge: challengeText,
     hubUrl,
