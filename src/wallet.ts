@@ -120,12 +120,20 @@ export class BlockstackWallet {
     }
   }
 
+  static getRandomValuesPolyfill = (arraySize: any) => {
+    let array = new Uint8Array(arraySize);
+    for (let i = 0, l = array.length; i < l; i++) {
+        array[i] = Math.floor(Math.random() * 256);
+    }
+    return array;
+  };
+
   /**
    * Generate a BIP-39 12 word mnemonic
    * @return {Promise<string>} space-separated 12 word phrase
    */
   static generateMnemonic() {
-    return bip39.generateMnemonic(128, crypto.randomBytes)
+    return bip39.generateMnemonic(128, this.getRandomValuesPolyfill)
   }
 
   /**
