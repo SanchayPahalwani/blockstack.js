@@ -120,7 +120,7 @@ export class BlockstackWallet {
     }
   }
 
-  static getRandomValuesPolyfill = (arraySize: any) => {
+  static getRandomValuesPolyfill = (arraySize: number) => {
     let array = new Uint8Array(arraySize);
     for (let i = 0, l = array.length; i < l; i++) {
         array[i] = Math.floor(Math.random() * 256);
